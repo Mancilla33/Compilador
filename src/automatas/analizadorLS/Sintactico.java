@@ -156,6 +156,14 @@ public class Sintactico {
             
             if(est.equalsIgnoreCase("switch")){
                 banSwi=false;
+                if(!banDef){
+                    String resE=semantico.addSwitch(token.linea, true);
+                    if(!resE.isEmpty()){
+                        semantico.vaciaPilas();
+                        return resE;
+                    }
+                }
+                banDef=false;
                 semantico.finSwitch();
                 pilaEstruct.remove(pilaEstruct.size()-1);
             }else if(est.equalsIgnoreCase("while")){
@@ -208,7 +216,6 @@ public class Sintactico {
             banCase=false;
             banAsig=false;
             String resE=semantico.addSwitch(token.linea, banDef);
-            banDef=false;
             if(!resE.isEmpty()){
                 semantico.vaciaPilas();
                 return resE;
